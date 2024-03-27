@@ -63,7 +63,7 @@ function App() {
         <div className="bg"></div>
         <h2>7K2 Auto Coupons</h2>
         <p>({couponCodes.length} Codes)</p>
-        <input placeholder='Your Account Token' value={token} onChange={handleTokenChange}></input>
+        <input placeholder='Enter Member code' value={token} onChange={handleTokenChange}></input>
         <h2 className='btn' onClick={handleGetItemsClick}>Get Items</h2>
       </div>
     </>
