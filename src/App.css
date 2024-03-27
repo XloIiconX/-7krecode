@@ -20,10 +20,14 @@
   gap: 1rem;
 }
 h2{
+  text-align: center;
   color: #fff;
   font-size: 3rem;
 }
-
+p{
+  text-align: center;
+  color: #dddddd;
+}
 .container .bg{
   position: fixed;
   width: 100%;
@@ -51,4 +55,10 @@ h2{
 }
 .container .btn:hover{
   transform: scale(1.1);
+}
+
+@media only screen and (max-width:360px) {
+  .container input{
+    width: 90%;
+  }
 }
