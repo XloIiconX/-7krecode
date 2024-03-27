@@ -54,7 +54,7 @@ function App() {
       <div className="container">
         <div className="bg"></div>
         <h2>7K2 Auto Coupons</h2>
-        <p>(25 Codes)</p>
+        <p>({couponCodes.length} Codes)</p>
         <input placeholder='Your Account Token' value={token} onChange={handleTokenChange}></input>
         <h2 className='btn' onClick={handleGetItemsClick}>Get Items</h2>
       </div>
