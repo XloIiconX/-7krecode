@@ -2,12 +2,12 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [token, setToken] = useState(""); 
+  const [token, setToken] = useState("");
 
   const api = "https://corsproxy.io/?https://coupon.netmarble.com/api/coupon";
   const couponCodes = ["FEELINGEXP", "ROCKNLUNA", "EXCELLENTEQUIPMENT", "LEGENDHUNTER", "TWINKLE7K", "STEPPETSTEP", "HEROES4U", "IAMURHERO", "UCANFINDIT", "HEREIAM", "SIRMYTHICSIR", "UPGRADECOMPLETE", "ENFORCELEGEND", "HAPPYMARCHWITHSK2", "EXPHUNTER", "DOUWANTSTONE", "POTENTIALUP", "7KLOVEYOU", "MOREMAPS", "READY2PLAYRAID", "GETAHIGHGRADE", "SHINYJEWEL", "YELLOWSOULSTONE", "EVERY1LIKESMYTH", "S2VANESSAS2"];
 
-  async function fetchCoupon(code:any) {
+  async function fetchCoupon(code: any) {
     const payload = {
       couponCode: code,
       gameCode: "sk2gb",
@@ -37,13 +37,21 @@ function App() {
     }
   }
 
-  const handleTokenChange = (event:any) => {
+  const handleTokenChange = (event: any) => {
     setToken(event.target.value);
   }
 
   const handleGetItemsClick = () => {
     if (token.trim() !== "") {
-      couponCodes.forEach(fetchCoupon);
+      let index = 0;
+      const intervalId = setInterval(() => {
+        if (index < couponCodes.length) {
+          fetchCoupon(couponCodes[index]);
+          index++;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 1000);
     } else {
       alert('token is empty');
     }
