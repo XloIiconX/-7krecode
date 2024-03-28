@@ -30,6 +30,8 @@ p{
 }
 .container .bg{
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   background-image: url("https://hedwig-cf.netmarble.com/forum-common/sk2gb/sk2_th/09172507182547a29708a7cb60dde6ec_1657849029473.jpg");
@@ -61,4 +63,8 @@ p{
   .container input{
     width: 90%;
   }
+}
+.container .statuses h3{
+  color: #fff;
+  font-size: 1rem;
 }
