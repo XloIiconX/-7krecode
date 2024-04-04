@@ -11,7 +11,7 @@ function App() {
   const [statuses, setStatuses] = useState<Statuses>({}); 
 
   const api = "https://corsproxy.io/?https://coupon.netmarble.com/api/coupon";
-  const couponCodes = ["FEELINGEXP", "ROCKNLUNA", "EXCELLENTEQUIPMENT", "LEGENDHUNTER", "TWINKLE7K", "STEPPETSTEP", "HEROES4U", "IAMURHERO", "UCANFINDIT", "HEREIAM", "SIRMYTHICSIR", "UPGRADECOMPLETE", "ENFORCELEGEND", "HAPPYMARCHWITHSK2", "EXPHUNTER", "DOUWANTSTONE", "POTENTIALUP", "7KLOVEYOU", "MOREMAPS", "READY2PLAYRAID", "GETAHIGHGRADE", "SHINYJEWEL", "YELLOWSOULSTONE", "EVERY1LIKESMYTH", "S2VANESSAS2"];
+  const couponCodes = ["FEELINGEXP", "ROCKNLUNA", "EXCELLENTEQUIPMENT", "LEGENDHUNTER", "TWINKLE7K", "STEPPETSTEP", "HEROES4U", "IAMURHERO", "UCANFINDIT", "HEREIAM", "SIRMYTHICSIR", "UPGRADECOMPLETE", "ENFORCELEGEND", "HAPPYMARCHWITHSK2", "EXPHUNTER", "DOUWANTSTONE", "POTENTIALUP", "7KLOVEYOU", "MOREMAPS", "READY2PLAYRAID", "GETAHIGHGRADE", "SHINYJEWEL", "YELLOWSOULSTONE", "EVERY1LIKESMYTH", "S2VANESSAS2","JEWELCOLLECTOR", "MYTHICMANIA", "SUNNSOLAR", "BLINGJEWEL"].reverse();
 
   async function fetchCoupon(code: string) {
     setStatuses(prevStatuses => ({
@@ -90,7 +90,7 @@ function App() {
       <div className="container">
         <div className="bg"></div>
         <h2>7K2 Auto Coupons</h2>
-        <p>({couponCodes.length} Codes)</p>
+        <p>({couponCodes.length} / 50 Codes)</p>
         <input placeholder='Enter Member code' value={token} onChange={handleTokenChange}></input>
         <h2 className='btn' onClick={handleGetItemsClick}>Get Items</h2>
         <div className="statuses">
