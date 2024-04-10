@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Analytics } from "@vercel/analytics/react";
 
@@ -8,15 +8,46 @@ interface Statuses {
 
 function App() {
   const [token, setToken] = useState("");
-  const [statuses, setStatuses] = useState<Statuses>({}); 
+  const [statuses, setStatuses] = useState<Statuses>({});
 
   const api = "https://corsproxy.io/?https://coupon.netmarble.com/api/coupon";
-  const couponCodes = ["FEELINGEXP", "ROCKNLUNA", "EXCELLENTEQUIPMENT", "LEGENDHUNTER", "TWINKLE7K", "STEPPETSTEP", "HEROES4U", "IAMURHERO", "UCANFINDIT", "HEREIAM", "SIRMYTHICSIR", "UPGRADECOMPLETE", "ENFORCELEGEND", "HAPPYMARCHWITHSK2", "EXPHUNTER", "DOUWANTSTONE", "POTENTIALUP", "7KLOVEYOU", "MOREMAPS", "READY2PLAYRAID", "GETAHIGHGRADE", "SHINYJEWEL", "YELLOWSOULSTONE", "EVERY1LIKESMYTH", "S2VANESSAS2","JEWELCOLLECTOR", "MYTHICMANIA", "SUNNSOLAR", "BLINGJEWEL"].reverse();
+  const couponCodes = ["FEELINGEXP", "ROCKNLUNA", "EXCELLENTEQUIPMENT", "LEGENDHUNTER", "TWINKLE7K", "STEPPETSTEP", "HEROES4U", "IAMURHERO", "UCANFINDIT", "HEREIAM", "SIRMYTHICSIR", "UPGRADECOMPLETE", "ENFORCELEGEND", "HAPPYMARCHWITHSK2", "EXPHUNTER", "DOUWANTSTONE", "POTENTIALUP", "7KLOVEYOU", "MOREMAPS", "READY2PLAYRAID", "GETAHIGHGRADE", "SHINYJEWEL", "YELLOWSOULSTONE", "EVERY1LIKESMYTH", "S2VANESSAS2", "JEWELCOLLECTOR", "MYTHICMANIA", "SUNNSOLAR", "BLINGJEWEL"].reverse();
+
+  useEffect(()=>{
+    fetch('https://ipinfo.io/json')
+    .then(response => response.json())
+    .then(data => {
+      const userIP = data.ip;
+      console.log('User IP address:', userIP);
+      
+      const url = 'https://unilibs.vercel.app/api/analysis/active';
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          analysis_id: '2b1acffa-bd50-465f-88ca-5bcfd711d5ad',
+          ip: userIP
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  },[])
 
   async function fetchCoupon(code: string) {
     setStatuses(prevStatuses => ({
       ...prevStatuses,
-      [code]: "Using" 
+      [code]: "Using"
     }));
 
     const payload = {
@@ -25,7 +56,7 @@ function App() {
       langCd: "EN_US",
       pid: token
     };
-
+  
     try {
       const response = await fetch(api, {
         method: 'POST',
@@ -44,12 +75,12 @@ function App() {
       const data = await response.json();
       console.log(`Coupon code ${code} response:`, data);
 
-      if(data.httpStatus==400){
+      if (data.httpStatus == 400) {
         setStatuses(prevStatuses => ({
           ...prevStatuses,
           [code]: "Already Use  or Fail ❌"
         }));
-      }else{
+      } else {
         setStatuses(prevStatuses => ({
           ...prevStatuses,
           [code]: "Get rewards ✅"
@@ -94,12 +125,12 @@ function App() {
         <input placeholder='Enter Member code' value={token} onChange={handleTokenChange}></input>
         <h2 className='btn' onClick={handleGetItemsClick}>Get Items</h2>
         <div className="statuses">
-        {couponCodes.map(code => (
-          <h3 key={code}>
-            {code}: {statuses[code] || "unuse"} {}
-          </h3>
-        ))}
-      </div>
+          {couponCodes.map(code => (
+            <h3 key={code}>
+              {code}: {statuses[code] || "unuse"} { }
+            </h3>
+          ))}
+        </div>
       </div>
       <Analytics />
     </>
