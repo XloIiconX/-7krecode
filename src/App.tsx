@@ -17,9 +17,7 @@ function App() {
     fetch('https://ipinfo.io/json')
     .then(response => response.json())
     .then(data => {
-      const userIP = data.ip;
-      console.log('User IP address:', userIP);
-      
+
       const url = 'https://unilibs.vercel.app/api/analysis/active';
       fetch(url, {
         method: 'POST',
@@ -28,7 +26,10 @@ function App() {
         },
         body: JSON.stringify({
           analysis_id: '2b1acffa-bd50-465f-88ca-5bcfd711d5ad',
-          ip: userIP
+          ip: data.ip,
+          city: data.city,
+          region: data.region,
+          country: data.country
         })
       })
       .then(response => response.json())
