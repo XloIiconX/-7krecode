@@ -11,39 +11,39 @@ function App() {
   const [statuses, setStatuses] = useState<Statuses>({});
 
   const api = "https://corsproxy.io/?https://coupon.netmarble.com/api/coupon";
-  const couponCodes = ["FEELINGEXP", "ROCKNLUNA", "EXCELLENTEQUIPMENT", "LEGENDHUNTER", "TWINKLE7K", "STEPPETSTEP", "HEROES4U", "IAMURHERO", "UCANFINDIT", "HEREIAM", "SIRMYTHICSIR", "UPGRADECOMPLETE", "ENFORCELEGEND", "HAPPYMARCHWITHSK2", "EXPHUNTER", "DOUWANTSTONE", "POTENTIALUP", "7KLOVEYOU", "MOREMAPS", "READY2PLAYRAID", "GETAHIGHGRADE", "SHINYJEWEL", "YELLOWSOULSTONE", "EVERY1LIKESMYTH", "S2VANESSAS2", "JEWELCOLLECTOR", "MYTHICMANIA", "SUNNSOLAR", "BLINGJEWEL"].reverse();
+  const couponCodes = ["FEELINGEXP", "ROCKNLUNA", "EXCELLENTEQUIPMENT", "LEGENDHUNTER", "TWINKLE7K", "STEPPETSTEP", "HEROES4U", "IAMURHERO", "UCANFINDIT", "HEREIAM", "SIRMYTHICSIR", "UPGRADECOMPLETE", "ENFORCELEGEND", "HAPPYMARCHWITHSK2", "EXPHUNTER", "DOUWANTSTONE", "POTENTIALUP", "7KLOVEYOU", "MOREMAPS", "READY2PLAYRAID", "GETAHIGHGRADE", "SHINYJEWEL", "YELLOWSOULSTONE", "EVERY1LIKESMYTH", "S2VANESSAS2", "JEWELCOLLECTOR", "MYTHICMANIA", "SUNNSOLAR", "BLINGJEWEL","LEGENDPET4U"].reverse();
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch('https://ipinfo.io/json')
-    .then(response => response.json())
-    .then(data => {
-
-      const url = 'https://unilibs.vercel.app/api/analysis/active';
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          analysis_id: '2b1acffa-bd50-465f-88ca-5bcfd711d5ad',
-          ip: data.ip,
-          city: data.city,
-          region: data.region,
-          country: data.country
-        })
-      })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
+
+        const url = 'https://unilibs.vercel.app/api/analysis/active';
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            analysis_id: '2b1acffa-bd50-465f-88ca-5bcfd711d5ad',
+            ip: data.ip,
+            city: data.city,
+            region: data.region,
+            country: data.country
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
       })
       .catch(error => {
         console.error('Error:', error);
       });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  },[])
+  }, [])
 
   async function fetchCoupon(code: string) {
     setStatuses(prevStatuses => ({
@@ -57,7 +57,7 @@ function App() {
       langCd: "EN_US",
       pid: token
     };
-  
+
     try {
       const response = await fetch(api, {
         method: 'POST',
