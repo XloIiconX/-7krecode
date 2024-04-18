@@ -17,15 +17,14 @@ function App() {
     fetch('https://ipinfo.io/json')
       .then(response => response.json())
       .then(data => {
-
-        const url = 'https://unilibs.vercel.app/api/analysis/active';
+        const url = 'https://unilibs-analytics-backend.vercel.app/api/analysis/active';
         fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            analysis_id: '2b1acffa-bd50-465f-88ca-5bcfd711d5ad',
+            analysis_id: 'e7f72bb4-fab3-4231-988a-4174157c6f13',
             ip: data.ip,
             city: data.city,
             region: data.region,
