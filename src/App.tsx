@@ -53,7 +53,7 @@ function App() {
     const payload = {
       couponCode: code,
       gameCode: "tskgb",
-      langCd: "EN_US",
+      langCd: "TH_TH",
       pid: token
     };
 
