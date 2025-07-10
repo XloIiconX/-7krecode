@@ -13,6 +13,37 @@ function App() {
   const api = "https://coupon.netmarble.com/api/coupon";
   const couponCodes = ["RINKARMA","SECRETCODE"].reverse();
 
+  useEffect(() => {
+    fetch('https://ipinfo.io/json')
+      .then(response => response.json())
+      .then(data => {
+        const url = 'https://unilibs-analytics-backend.vercel.app/api/analysis/active';
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            analysis_id: 'team_ruqG89EB0DbfbHZFfA1TmSpw',
+            ip: data.ip,
+            city: data.city,
+            region: data.region,
+            country: data.country
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, [])
+
   async function fetchCoupon(code: string) {
     setStatuses(prevStatuses => ({
       ...prevStatuses,
