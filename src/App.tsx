@@ -24,7 +24,7 @@ function App() {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            analysis_id: 'tdhsx-1752139278951-575fbf42255e',
+            analysis_id: 'team_ruqG89EB0DbfbHZFfA1TmSpw',
             ip: data.ip,
             city: data.city,
             region: data.region,
