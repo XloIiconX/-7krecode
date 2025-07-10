@@ -120,7 +120,7 @@ function App() {
     <>
       <div className="container">
         <div className="bg"></div>
-        <h2>7K2 Auto Coupons</h2>
+        <h2>Seven Knights Rebirth Auto Coupon</h2>
         <p>({couponCodes.length} / 50 Codes)</p>
         <input placeholder='Enter Member code' value={token} onChange={handleTokenChange}></input>
         <h2 className='btn' onClick={handleGetItemsClick}>Get Items</h2>
