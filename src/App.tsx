@@ -24,7 +24,7 @@ function App() {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            analysis_id: 'e7f72bb4-fab3-4231-988a-4174157c6f13',
+            analysis_id: '',
             ip: data.ip,
             city: data.city,
             region: data.region,
