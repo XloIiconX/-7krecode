@@ -21,24 +21,20 @@ function App() {
 
     const payload = {
       gameCode: "tskgb",
-      langCd: "KO_KR",
-      pid: token,
       couponCode: code,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "User-Agent": "Mozilla/5.0 (CouponScript)",
-      Origin: "https://coupon.netmarble.com",
-      Referer: "https://coupon.netmarble.com/tskgb",
+      langCd: "TH_TH",
+      pid: token
     };
 
     try {
-       const response = await fetch("https://coupon.netmarble.com/api/coupon", {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(payload),
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Referer': 'https://coupon.netmarble.com/tskgb',
+        },
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
