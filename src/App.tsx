@@ -7,115 +7,63 @@ interface Statuses {
 }
 
 function App() {
-const [pid, setPid] = useState("")
-  const [isRunning, setIsRunning] = useState(false)
-  const [results, setResults] = useState<CouponResult[]>([])
-  const [progress, setProgress] = useState(0)
-  const [currentCode, setCurrentCode] = useState("")
+  const [token, setToken] = useState("");
+  const [statuses, setStatuses] = useState<Statuses>({});
 
-  const codes = [
-    "RINKARMA",
-    "GUILDWAR",
-    "7SENASENA7",
-    "GOODLUCK",
-    "THANKYOU",
-    "LOVELYRUBY",
-    "REBIRTHBACK",
-    "BONVOYAGE",
-    "YONGSANIM",
-    "TREASURE",
-    "WELCOMEBACK",
-    "THEMONTHOFSENA",
-    "EVANKARIN",
-    "DARKKNIGHTS",
-    "SENAHAJASENA",
-    "CMMAY",
-    "7777777",
-    "LOVESENA",
-    "INFINITETOWER",
-    "UPDATES",
-    "SENARAID",
-    "SENAEVENTS",
-    "SECRETCODE",
-    "MAILBOX",
-    "YUISSONG",
-    "RELEASEPET",
-    "MOREKEYS",
-    "WELCOMESENA",
-    "HEROSOMMON",
-    "SENAREGOGO",
-    "SHOWMETHEMONEY",
-    "PDKIMJUNGKI",
-    "INFOCODEX",
-    "THEHOLYCROSS",
-    "FUSEGETSPECIAL",
-    "ADVENTURER",
-    "NOHOSCHRONICLE",
-    "VALKYRIE",
-    "LEGENDSRAID",
-    "STORYEVENT",
-    "SURPRISE",
-    "INTOTHESENA",
-  ]
+  const api = "https://coupon.netmarble.com/api/coupon";
+  const couponCodes = ["RINKARMA","SECRETCODE"].reverse();
 
-  const redeemCoupons = async () => {
-    if (!pid || pid.length < 8) {
-      alert("PID must be at least 8 characters long.")
-      return
-    }
+  async function fetchCoupon(code: string) {
+    setStatuses(prevStatuses => ({
+      ...prevStatuses,
+      [code]: "Using"
+    }));
 
-    setIsRunning(true)
-    setResults([])
-    setProgress(0)
-
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "User-Agent": "Mozilla/5.0 (CouponScript)",
-      Origin: "https://coupon.netmarble.com",
-      Referer: "https://coupon.netmarble.com/tskgb",
-    }
-
-    const basePayload = {
+    const payload = {
       gameCode: "tskgb",
-      langCd: "KO_KR",
-      pid: pid,
+      couponCode: code,
+      langCd: "TH_TH",
+      pid: token
+    };
+
+    try {
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Referer': 'https://coupon.netmarble.com/tskgb',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log(`Coupon code ${code} response:`, data);
+
+      if (data.httpStatus == 400) {
+        setStatuses(prevStatuses => ({
+          ...prevStatuses,
+          [code]: "Already Use  or Fail ❌"
+        }));
+      } else {
+        setStatuses(prevStatuses => ({
+          ...prevStatuses,
+          [code]: "Get rewards ✅"
+        }));
+      }
+    } catch (error) {
+      console.error(`Error fetching coupon code ${code}:`, error);
+
+      setStatuses(prevStatuses => ({
+        ...prevStatuses,
+        [code]: "error"
+      }));
     }
-
-    for (let i = 0; i < codes.length; i++) {
-      const code = codes[i]
-      setCurrentCode(code)
-
-      try {
-        const payload = {
-          ...basePayload,
-          couponCode: code,
-        }
-
-        const response = await fetch("/api/redeem-coupon", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ payload, headers }),
-        })
-
-        const data = await response.json()
-
-        let result: CouponResult
-        if (data.error) {
-          result = { code, status: "error", message: data.error }
-        } else {
-          const { errorCode, errorMessage, resultCd, message } = data
-
-          if (errorCode === 24004 || /이미|초과/.test(errorMessage || "")) {
-            result = { code, status: "used", message: "Already used code" }
-          } else if (resultCd === "00" || /정상/.test(message || "")) {
-            result = { code, status: "error", message: errorMessage || "API returned success code" }
-          } else {
-            result = { code, status: "success", message: "Successfully redeemed" }
-          }
-        }
+  }
 
   const handleTokenChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setToken(event.target.value);
