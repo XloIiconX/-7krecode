@@ -10,7 +10,7 @@ function App() {
   const [token, setToken] = useState("");
   const [statuses, setStatuses] = useState<Statuses>({});
 
-  const api = "https://corsproxy.io/?https://coupon.netmarble.com/api/coupon";
+  const api = "https://coupon.netmarble.com/api/coupon";
   const couponCodes = ["RINKARMA","SECRETCODE"].reverse();
 
   useEffect(() => {
