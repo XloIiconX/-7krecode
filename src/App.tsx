@@ -19,6 +19,14 @@ function App() {
       [code]: "Using"
     }));
 
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "User-Agent": "Mozilla/5.0 (CouponScript)",
+      Origin: "https://coupon.netmarble.com",
+      Referer: "https://coupon.netmarble.com/tskgb",
+    };
+
     const payload = {
       gameCode: "tskgb",
       couponCode: code,
