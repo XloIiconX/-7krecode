@@ -21,10 +21,18 @@ function App() {
 
     const payload = {
       gameCode: "tskgb",
+      langCd: "KO_KR",
+      pid: token,
       couponCode: code,
-      langCd: "TH_TH",
-      pid: token
     };
+
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "User-Agent": "Mozilla/5.0 (CouponScript)",
+      Origin: "https://coupon.netmarble.com",
+      Referer: "https://coupon.netmarble.com/tskgb",
+    }
 
     try {
       const response = await fetch(api, {
