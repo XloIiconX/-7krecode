@@ -51,8 +51,8 @@ function App() {
     }));
 
     const payload = {
-      couponCode: code,
       gameCode: "tskgb",
+      couponCode: code,
       langCd: "TH_TH",
       pid: token
     };
