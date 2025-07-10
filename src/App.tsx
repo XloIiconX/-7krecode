@@ -52,7 +52,7 @@ function App() {
 
     const payload = {
       couponCode: code,
-      gameCode: "sk2gb",
+      gameCode: "tskgb",
       langCd: "EN_US",
       pid: token
     };
@@ -63,7 +63,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
-          'Referer': 'https://coupon.netmarble.com/sk2gb',
+          'Referer': 'https://coupon.netmarble.com/tskgb',
         },
         body: JSON.stringify(payload)
       });
