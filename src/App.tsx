@@ -25,7 +25,7 @@ function App() {
       "User-Agent": "Mozilla/5.0 (CouponScript)",
       Origin: "https://coupon.netmarble.com",
       Referer: "https://coupon.netmarble.com/tskgb",
-    };
+    }
 
     const payload = {
       gameCode: "tskgb",
