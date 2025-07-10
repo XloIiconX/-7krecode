@@ -91,7 +91,6 @@ function App() {
         <div className="bg"></div>
         <h2>Seven Knights Rebirth Auto Coupon</h2>
         <p>({couponCodes.length} / 77 Codes)</p>
-        <script src="https://gist.github.com/myosotis-s/6b543de1ed65396ed83c142d95876b0c.js"></script>
         <input placeholder='Enter Member code' value={token} onChange={handleTokenChange}></input>
         <h2 className='btn' onClick={handleGetItemsClick}>Get Items</h2>
         <div className="statuses">
